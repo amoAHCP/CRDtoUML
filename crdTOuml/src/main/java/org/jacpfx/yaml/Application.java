@@ -1,6 +1,4 @@
-package org.jacpfx.application;
-
-import java.util.List;
+package org.jacpfx.yaml;
 
 public class Application {
     private String apiVersion;

@@ -1,4 +1,4 @@
-package org.jacpfx.application;
+package org.jacpfx.yaml;
 
 public class Dependency {
     private String name;
