@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.nio.file.Files.newInputStream;
+
 public class FileLoader {
     private static final Constructor CONSTRUCTOR = new Constructor(Application.class);
     private static final String YAML = ".yaml";
@@ -57,12 +59,29 @@ public class FileLoader {
 
         InputStream inputStream = null;
         try {
-            inputStream = Files.newInputStream(Paths.get(path));
+            inputStream = newInputStream(Paths.get(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            return inputStream != null ? new Yaml(CONSTRUCTOR, REPRESENTER).load(inputStream) : new Application();
+        } finally {
+            if (inputStream != null) {
+                final InputStream finalInputStream = inputStream;
+                tryIO(() -> finalInputStream.close());
+            }
+        }
 
-        return inputStream != null ? new Yaml(CONSTRUCTOR, REPRESENTER).load(inputStream) : new Application();
+    }
+
+
+
+    private void tryIO(RunIO run) {
+        try {
+            run.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

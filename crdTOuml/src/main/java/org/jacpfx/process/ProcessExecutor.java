@@ -11,29 +11,24 @@ import java.util.stream.Collectors;
 public class ProcessExecutor {
 
 
+    public static final String DELIMITER = "\n";
+
     public static ProcessResult executeUNIXProcess(String[] arg) throws IOException {
         Objects.nonNull(arg);
         final ProcessBuilder processBuilder = new ProcessBuilder();
-        final String command = getCommand(arg);
-        // processBuilder.command("/bin/bash", "-c", "helms show values adcubum/syrius-productmgmt-bl --version 0.10.1");
-        processBuilder.command("/bin/bash", "-c", command);
-        final Process process = processBuilder.start();
-        final InputStream inputStream = process.getInputStream();
-        return getProcessResult(process, inputStream);
+        final Process process = processBuilder.command("/bin/bash", "-c", getCommand(arg)).start();
+        return getProcessResult(process);
     }
 
-    private static ProcessResult getProcessResult(Process process, InputStream inputStream) {
-        String result = getOutputAsString(inputStream);
-        System.out.println(result);
-
+    private static ProcessResult getProcessResult(Process process) throws IOException {
+        Objects.nonNull(process);
         int exitCode = getExitCode(process);
-        switch (exitCode){
+        switch (exitCode) {
             case 0:
-                return new ProcessResult(exitCode,result.replace("\"\"", "\"123\""));
+                return new ProcessResult(exitCode, getOutputAsString(process.getInputStream()));
             default:
-                return new ProcessResult(exitCode,getOutputAsString(process.getErrorStream()));
+                return new ProcessResult(exitCode, getOutputAsString(process.getErrorStream()));
         }
-
     }
 
     private static int getExitCode(Process process) {
@@ -50,8 +45,15 @@ public class ProcessExecutor {
         return String.join(" ", Arrays.asList(arg));
     }
 
-    private static String getOutputAsString(InputStream inputStream) {
-        return new BufferedReader(new InputStreamReader(inputStream))
-                .lines().collect(Collectors.joining("\n"));
+    private static String getOutputAsString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            return bufferedReader.
+                    lines().
+                    collect(Collectors.joining(DELIMITER));
+        } finally {
+            bufferedReader.close();
+        }
+
     }
 }

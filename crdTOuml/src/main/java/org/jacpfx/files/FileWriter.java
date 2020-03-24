@@ -30,8 +30,11 @@ public class FileWriter {
         FileOutputStream outputStream = new FileOutputStream(name);
         SourceStringReader reader = new SourceStringReader(source.getSource());
         // Write the first image to "png"
-        reader.generateImage(outputStream);
-
+        try {
+            reader.generateImage(outputStream);
+        } finally {
+            outputStream.close();
+        }
     }
 
 
@@ -41,9 +44,12 @@ public class FileWriter {
         Objects.nonNull(name);
         FileOutputStream outputStream = new FileOutputStream(name);
         byte[] contentToBytes = content.getContent().getBytes();
-        outputStream.write(contentToBytes);
+       try {
+           outputStream.write(contentToBytes);
+       } finally {
+           outputStream.close();
+       }
 
-        outputStream.close();
     }
 
 

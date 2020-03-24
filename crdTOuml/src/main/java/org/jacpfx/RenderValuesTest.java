@@ -11,8 +11,8 @@ public class RenderValuesTest {
     public static void main(String[] args) throws IOException {
 
 
-        ProcessResult processResult = ProcessExecutor.executeUNIXProcess(new String[]{"helms show values adcubum/syrius-productmgmt-bl --version 0.10.1"});
-        System.out.println("status: "+processResult.getStatus()+"  value: "+processResult.getResult());
+        ProcessResult processResult = ProcessExecutor.executeUNIXProcess(new String[]{"helm show values adcubum/syrius-productmgmt-bl --version 0.10.1"});
+        System.out.println("status: "+processResult.getStatus()+"  value: "+processResult.getResult().replace("\"\"", "\"123\""));
 
     }
 
