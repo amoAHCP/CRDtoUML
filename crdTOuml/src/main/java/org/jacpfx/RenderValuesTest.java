@@ -1,17 +1,19 @@
 package org.jacpfx;
 
-import org.jacpfx.process.ProcessExecutor;
-import org.jacpfx.process.ProcessResult;
+import org.jacpfx.deployment.Helm;
+import org.jacpfx.deployment.command.helm.ShowValues;
+import org.jacpfx.deployment.process.ProcessExecutor;
+import org.jacpfx.deployment.process.ProcessResult;
 
 import java.io.*;
-import java.util.stream.Collectors;
 
 public class RenderValuesTest {
 
     public static void main(String[] args) throws IOException {
-
-
-        ProcessResult processResult = ProcessExecutor.executeUNIXProcess(new String[]{"helm show values adcubum/syrius-productmgmt-bl --version 0.10.1"});
+        ShowValues showValues = new ShowValues("adcubum/syrius-productmgmt-bl", "0.10.1");
+        ProcessResult processResult = Helm.helmShowValues(showValues);
+        // Helm.helmRepoUpdate();
+       // ProcessResult processResult = ProcessExecutor.executeUNIXProcess(new String[]{"helm show values adcubum/syrius-productmgmt-bl --version 0.10.1"});
         System.out.println("status: "+processResult.getStatus()+"  value: "+processResult.getResult().replace("\"\"", "\"123\""));
 
     }

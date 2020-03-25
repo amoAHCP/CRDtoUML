@@ -1,4 +1,4 @@
-package org.jacpfx.process;
+package org.jacpfx.deployment.process;
 
 public class ProcessResult {
     private final int status;
