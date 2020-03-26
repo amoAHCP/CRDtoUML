@@ -11,22 +11,25 @@ import java.util.stream.Collectors;
 
 public class ProcessExecutor {
     private final static Logger LOGGER = Logger.getLogger(ProcessExecutor.class.getName());
-
-    public static final String DELIMITER = "\n";
+    public static final String LINE_DELIMITER = "\n";
+    public static final String ARRAY_DELIMITER = " ";
 
     public static ProcessResult executeUNIXProcess(String... arg) throws IOException {
         Objects.nonNull(arg);
         final ProcessBuilder processBuilder = new ProcessBuilder();
         final String command = getCommand(arg);
         LOGGER.info("execute command: " + command);
-        final Process process = processBuilder.command("/bin/bash", "-c", command).start();
-        return getProcessResult(process);
+        return getProcessResult(
+                processBuilder.
+                        command("/bin/bash", "-c", command).
+                        start()
+        );
     }
 
     private static ProcessResult getProcessResult(Process process) throws IOException {
         Objects.nonNull(process);
         int exitCode = getExitCode(process);
-        switch (exitCode) {
+        switch (getExitCode(process)) {
             case 0:
                 return new ProcessResult(exitCode, getOutputAsString(process.getInputStream()));
             default:
@@ -45,15 +48,15 @@ public class ProcessExecutor {
     }
 
     private static String getCommand(String[] arg) {
-        return String.join(" ", Arrays.asList(arg));
+        return String.join(ARRAY_DELIMITER, Arrays.asList(arg));
     }
 
     private static String getOutputAsString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             return bufferedReader.
                     lines().
-                    collect(Collectors.joining(DELIMITER));
+                    collect(Collectors.joining(LINE_DELIMITER));
         } finally {
             bufferedReader.close();
         }

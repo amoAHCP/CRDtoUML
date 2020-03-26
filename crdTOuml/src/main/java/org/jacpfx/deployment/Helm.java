@@ -1,6 +1,7 @@
 package org.jacpfx.deployment;
 
 import org.jacpfx.deployment.command.helm.Command;
+import org.jacpfx.deployment.command.helm.DownloadTemplates;
 import org.jacpfx.deployment.command.helm.ShowValues;
 import org.jacpfx.deployment.command.helm.Update;
 import org.jacpfx.deployment.process.ProcessExecutor;
@@ -29,23 +30,19 @@ public class Helm {
         return processResult.getStatus();
     }
 
-    public static ProcessResult helmShowValues(ShowValues showValues) {
+    public static ProcessResult helmShowValues(ShowValues showValues) throws IOException {
         return getProcessResult(showValues);
     }
 
-    private static ProcessResult getProcessResult(Command command) {
+    public static ProcessResult downloadTemplates(DownloadTemplates downloadTemplates) throws IOException {
+        return getProcessResult(downloadTemplates);
+    }
+
+    private static ProcessResult getProcessResult(Command command) throws IOException {
         ProcessResult processResult = new ProcessResult(EXIT_CODE, "");
-        try {
-            LOGGER.info("start >>  " + command.getCommand());
-            processResult = ProcessExecutor.executeUNIXProcess(command.getCommand());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        processResult = ProcessExecutor.executeUNIXProcess(command.getCommand());
         LOGGER.info(processResult.getResult());
         return processResult;
     }
 
-    public static ProcessResult downloadTemplates(ShowValues showValues) {
-        return getProcessResult(showValues);
-    }
 }
