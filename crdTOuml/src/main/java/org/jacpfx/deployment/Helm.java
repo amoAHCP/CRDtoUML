@@ -4,8 +4,8 @@ import org.jacpfx.deployment.command.helm.Command;
 import org.jacpfx.deployment.command.helm.DownloadTemplates;
 import org.jacpfx.deployment.command.helm.ShowValues;
 import org.jacpfx.deployment.command.helm.Update;
-import org.jacpfx.deployment.process.ProcessExecutor;
-import org.jacpfx.deployment.process.ProcessResult;
+import org.jacpfx.process.ProcessExecutor;
+import org.jacpfx.process.ProcessResult;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -14,11 +14,11 @@ public class Helm {
     public static final int EXIT_CODE = 127;
     private final static Logger LOGGER = Logger.getLogger(Helm.class.getName());
 
-    public static int helmRepoUpdate() {
-        return helmRepoUpdate(new Update());
+    public static int repoUpdate() {
+        return repoUpdate(new Update());
     }
 
-    public static int helmRepoUpdate(Update update) {
+    public static int repoUpdate(Update update) {
         ProcessResult processResult = new ProcessResult(EXIT_CODE, "");
         try {
             LOGGER.info("start >>  " + update.getCommand());
@@ -30,7 +30,7 @@ public class Helm {
         return processResult.getStatus();
     }
 
-    public static ProcessResult helmShowValues(ShowValues showValues) throws IOException {
+    public static ProcessResult showValues(ShowValues showValues) throws IOException {
         return getProcessResult(showValues);
     }
 
@@ -39,8 +39,7 @@ public class Helm {
     }
 
     private static ProcessResult getProcessResult(Command command) throws IOException {
-        ProcessResult processResult = new ProcessResult(EXIT_CODE, "");
-        processResult = ProcessExecutor.executeUNIXProcess(command.getCommand());
+        ProcessResult processResult = ProcessExecutor.executeUNIXProcess(command.getCommand());
         LOGGER.info(processResult.getResult());
         return processResult;
     }

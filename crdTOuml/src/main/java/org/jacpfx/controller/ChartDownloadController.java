@@ -4,7 +4,7 @@ import org.jacpfx.deployment.Helm;
 import org.jacpfx.deployment.command.helm.DownloadTemplates;
 import org.jacpfx.deployment.command.helm.ShowValues;
 import org.jacpfx.deployment.descriptor.helm.Chart;
-import org.jacpfx.deployment.process.ProcessResult;
+import org.jacpfx.process.ProcessResult;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,7 +19,7 @@ public class ChartDownloadController {
         Arrays.stream(charts).forEach(chart -> {
             ShowValues showValues = new ShowValues(chart.getChartName(), chart.getChartVersion());
             try {
-                ProcessResult processResult = Helm.helmShowValues(showValues);
+                ProcessResult processResult = Helm.showValues(showValues);
                 if (processResult.getStatus() == 0) {
                     File valuesFile = createValuesFile(chart, processResult);
                     Path outputFolder = Files.createTempDirectory(chart.getChartName() + "-");

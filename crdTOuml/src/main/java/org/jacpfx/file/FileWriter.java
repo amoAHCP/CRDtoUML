@@ -1,4 +1,4 @@
-package org.jacpfx.files;
+package org.jacpfx.file;
 
 import net.sourceforge.plantuml.SourceStringReader;
 

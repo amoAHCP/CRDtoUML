@@ -1,4 +1,4 @@
-package org.jacpfx.deployment.process;
+package org.jacpfx.process;
 
 import java.io.BufferedReader;
 import java.io.IOException;

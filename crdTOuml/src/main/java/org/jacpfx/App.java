@@ -1,11 +1,11 @@
 package org.jacpfx;
 
-import org.jacpfx.files.Content;
-import org.jacpfx.files.FileWriter;
-import org.jacpfx.files.Source;
+import org.jacpfx.file.Content;
+import org.jacpfx.file.FileWriter;
+import org.jacpfx.file.Source;
 import org.jacpfx.yaml.Application;
 import org.jacpfx.diagramm.SimpleObjectDiagram;
-import org.jacpfx.files.FileLoader;
+import org.jacpfx.file.FileLoader;
 
 import java.io.IOException;
 import java.util.List;

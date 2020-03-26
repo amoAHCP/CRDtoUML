@@ -1,4 +1,4 @@
-package org.jacpfx.files;
+package org.jacpfx.file;
 
 import org.jacpfx.yaml.Application;
 import org.yaml.snakeyaml.Yaml;
