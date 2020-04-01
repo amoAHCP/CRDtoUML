@@ -1,4 +1,4 @@
-package org.jacpfx.yaml;
+package org.jacpfx.yaml.model;
 
 public class Application {
     private String apiVersion;

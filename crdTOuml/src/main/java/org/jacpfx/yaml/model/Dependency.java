@@ -1,6 +1,6 @@
-package org.jacpfx.yaml;
+package org.jacpfx.yaml.model;
 
-public class ApplicationDependency {
+public class Dependency {
     private String name;
     private String type;
 
@@ -23,7 +23,7 @@ public class ApplicationDependency {
 
     @Override
     public String toString() {
-        return "ApplicationDependency{" +
+        return "Dependency{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 '}';

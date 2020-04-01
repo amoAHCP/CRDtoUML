@@ -1,16 +1,17 @@
-package org.jacpfx.diagramm;
+package org.jacpfx.renderer.diagramm;
 
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
-import org.jacpfx.yaml.Application;
-import org.jacpfx.yaml.ApplicationDependency;
+import org.jacpfx.yaml.model.Application;
+import org.jacpfx.yaml.model.ApplicationDependency;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,7 +41,6 @@ public class SimpleObjectDiagram {
         // Write the first image to "os"
         try {
             String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
-            System.out.println("file: "+desc);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,15 +54,14 @@ public class SimpleObjectDiagram {
     }
 
     private String getRelations(List<Application> applications) {
-        Stream<String> stringStream = applications.stream().flatMap(app -> {
-
-            String name = app.getMetadata().getName();
-            System.out.println("NAME: " + name);
-            List<ApplicationDependency> applicationDependencies = Optional.ofNullable(app.getSpec().getApplicationDependencies()).orElse(Collections.EMPTY_LIST);
-
-            System.out.println(applicationDependencies);
-            return applicationDependencies.stream().filter(d -> d != null).map(dep -> "[" + name + "]" + Relation.ARROW.getValue() + "[" + dep.getName() + "]");
-        });
+        Stream<String> stringStream = applications.
+                stream().
+                flatMap(app -> Optional.
+                        ofNullable(app.getSpec().getApplicationDependencies()).
+                        orElse(Collections.<ApplicationDependency>emptyList()).
+                        stream().
+                        filter(Objects::nonNull).
+                        map(dep -> "[" + app.getMetadata().getName() + "]" + Relation.ARROW.getValue() + "[" + dep.getName() + "]"));
         return String.join("\n", stringStream.collect(Collectors.toList()));
     }
 

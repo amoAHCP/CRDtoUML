@@ -1,4 +1,4 @@
-package org.jacpfx.diagramm;
+package org.jacpfx.renderer.diagramm;
 
 public enum Relation {
     EXTENSION(" <|-- "),
@@ -6,6 +6,7 @@ public enum Relation {
     AGGREGATION(" o-- "),
     CONNECTION(" .. "),
     ARROW(" --> ");
+
     private String value;
 
     Relation(String value) {

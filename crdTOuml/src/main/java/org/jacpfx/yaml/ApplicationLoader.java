@@ -1,7 +1,6 @@
-package org.jacpfx.file;
+package org.jacpfx.yaml;
 
-import org.jacpfx.yaml.Application;
-import org.yaml.snakeyaml.Yaml;
+import org.jacpfx.yaml.model.Application;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.representer.Representer;
 
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static java.nio.file.Files.newInputStream;
 
-public class FileLoader {
+public class ApplicationLoader {
     private static final Constructor CONSTRUCTOR = new Constructor(Application.class);
     private static final String YAML = ".yaml";
     private static final String YML = ".yml";
@@ -23,12 +22,13 @@ public class FileLoader {
     private static Representer REPRESENTER = getREPRESENTER();
     private final String folder;
 
-    public FileLoader(String folder) {
+    public ApplicationLoader(String folder) {
         this.folder = folder;
     }
 
     public List<Application> getApplicationFiles() throws IOException {
-        return Files.list(Paths.get(folder)).
+        return Files.walk(Paths.get(folder))
+                .filter(Files::isRegularFile).
                 filter(this::isYaml).
                 map(this::getPath).
                 map(this::getApplication).
@@ -63,25 +63,12 @@ public class FileLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            return inputStream != null ? new Yaml(CONSTRUCTOR, REPRESENTER).load(inputStream) : new Application();
-        } finally {
-            if (inputStream != null) {
-                final InputStream finalInputStream = inputStream;
-                tryIO(() -> finalInputStream.close());
-            }
-        }
+        return inputStream != null ? YAMLParser.parse(Application.class,inputStream) : new Application();
 
     }
 
 
 
-    private void tryIO(RunIO run) {
-        try {
-            run.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 }

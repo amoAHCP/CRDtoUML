@@ -1,4 +1,4 @@
-package org.jacpfx.yaml;
+package org.jacpfx.yaml.model;
 
 import java.util.List;
 

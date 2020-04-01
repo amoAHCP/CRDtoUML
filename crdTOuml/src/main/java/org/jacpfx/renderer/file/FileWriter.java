@@ -1,4 +1,4 @@
-package org.jacpfx.file;
+package org.jacpfx.renderer.file;
 
 import net.sourceforge.plantuml.SourceStringReader;
 
@@ -24,12 +24,12 @@ public class FileWriter {
         this.name = name;
     }
 
-    public void writeToPNG() throws IOException {
+    // TODO create Bi-consumer and remove dependency
+    public void writeSourceToFile() throws IOException {
         Objects.nonNull(source);
         Objects.nonNull(name);
         FileOutputStream outputStream = new FileOutputStream(name);
         SourceStringReader reader = new SourceStringReader(source.getSource());
-        // Write the first image to "png"
         try {
             reader.generateImage(outputStream);
         } finally {
@@ -38,7 +38,7 @@ public class FileWriter {
     }
 
 
-    public void writeToFile()
+    public void writeContentToFile()
             throws IOException {
         Objects.nonNull(content);
         Objects.nonNull(name);

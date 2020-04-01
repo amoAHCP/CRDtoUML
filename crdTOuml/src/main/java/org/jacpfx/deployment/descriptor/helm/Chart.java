@@ -3,9 +3,9 @@ package org.jacpfx.deployment.descriptor.helm;
 import java.io.File;
 
 public class Chart {
-    private final String chartName;
-    private final String chartVersion;
-    private final File values;
+    private String chartName;
+    private String chartVersion;
+    private File values;
 
     public Chart(String chartName, String chartVersion, File values) {
         this.chartName = chartName;
@@ -19,6 +19,9 @@ public class Chart {
         this.values = null;
     }
 
+    public Chart() {
+    }
+
     public String getChartName() {
         return chartName;
     }
@@ -29,5 +32,17 @@ public class Chart {
 
     public File getValues() {
         return values;
+    }
+
+    public void setChartName(String chartName) {
+        this.chartName = chartName;
+    }
+
+    public void setChartVersion(String chartVersion) {
+        this.chartVersion = chartVersion;
+    }
+
+    public void setValues(File values) {
+        this.values = values;
     }
 }

@@ -1,4 +1,4 @@
-package org.jacpfx.file;
+package org.jacpfx.renderer.file;
 
 import java.util.Objects;
 

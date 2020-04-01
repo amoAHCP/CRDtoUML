@@ -1,5 +1,7 @@
 package org.jacpfx.process;
 
+import org.jacpfx.configuration.PropertyLoader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +23,7 @@ public class ProcessExecutor {
         LOGGER.info("execute command: " + command);
         return getProcessResult(
                 processBuilder.
-                        command("/bin/bash", "-c", command).
+                        command(PropertyLoader.getProperty("shell"), PropertyLoader.getProperty("commandOption"), command).
                         start()
         );
     }
@@ -48,7 +50,7 @@ public class ProcessExecutor {
     }
 
     private static String getCommand(String[] arg) {
-        return String.join(ARRAY_DELIMITER, Arrays.asList(arg));
+        return String.join(ARRAY_DELIMITER, Arrays.asList(arg)).replace("= ","=");
     }
 
     private static String getOutputAsString(InputStream inputStream) throws IOException {

@@ -16,4 +16,13 @@ public class ProcessResult {
     public String getResult() {
         return result;
     }
+
+
+    @Override
+    public String toString() {
+        return "ProcessResult{" +
+                "status=" + status +
+                ", result='" + result + '\'' +
+                '}';
+    }
 }
