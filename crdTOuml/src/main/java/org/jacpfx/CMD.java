@@ -5,28 +5,26 @@ import org.jacpfx.controller.ChartController;
 import org.jacpfx.deployment.descriptor.helm.Chart;
 import org.jacpfx.deployment.descriptor.helm.Charts;
 import org.jacpfx.deployment.dto.helm.ChartTemplates;
-
 import org.jacpfx.renderer.diagramm.ObjectDiagram;
+import org.jacpfx.renderer.file.FileWriter;
 import org.jacpfx.renderer.file.dto.Source;
+import org.jacpfx.yaml.ApplicationLoader;
 import org.jacpfx.yaml.YAMLParser;
 import org.jacpfx.yaml.model.Application;
-import org.jacpfx.yaml.ApplicationLoader;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-
-import org.jacpfx.renderer.file.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Hello world!
- */
-public class App {
+@Component
+public class CMD implements CommandLineRunner {
 
-
-    public static void main(String[] args) throws IOException {
+    @Override
+    public void run(String... args) throws Exception {
         ChartController ctr = new ChartController();
         String folder = PropertyLoader.getProperty("outputFolder");
         try (InputStream input = App.class.getClassLoader().getResourceAsStream(PropertyLoader.getProperty("charts"))) {
@@ -41,21 +39,14 @@ public class App {
                     peek(app-> System.out.println(app.toString())).
                     collect(Collectors.toList());
             //  List<Application> applicationFiles = getApplicationFiles(folder);
-           // String svg = new ObjectDiagram(applicationFiles).toSVG();
+            // String svg = new ObjectDiagram(applicationFiles).toSVG();
             String png = new ObjectDiagram(applicationFiles).toString();
             System.out.println(png);
-        //    new FileWriter(new Content(svg), folder + "/output.svg").writeContentToFile();
+            //    new FileWriter(new Content(svg), folder + "/output.svg").writeContentToFile();
             new FileWriter(new Source(png), folder + "/output.png").writeSourceToFile();
         }
         System.out.println("---");
-     /**   List<ChartTemplates> chartTemplates = ctr.downloadCharts(
-                new Chart("adcubum/syrius-productmgmt-bl", "0.10.1"),
-                new Chart("adcubum/syrius-mktgdist-salessupport-webapp", "0.1.0-rc.1"),
-                new Chart("adcubum/syrius-erp-salessupport-bff-expert", "0.1.0-rc.1"),
-                new Chart("adcubum/syrius-erp-salessupport-bl", "0.1.0-rc.1"));**/
-
     }
-
     private static List<Application> getApplicationFiles(String s)  {
         try {
             return new ApplicationLoader(s).getApplicationFiles();
@@ -63,13 +54,5 @@ public class App {
             e.printStackTrace();
         }
         return Collections.EMPTY_LIST;
-    }
-
-
-
-
-    public void print() {
-
-
     }
 }

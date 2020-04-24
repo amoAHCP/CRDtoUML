@@ -5,6 +5,7 @@ public enum Relation {
     COMPOSITION(" *-- "),
     AGGREGATION(" o-- "),
     CONNECTION(" .. "),
+    EQUALS(" = "),
     ARROW(" --> ");
 
     private String value;

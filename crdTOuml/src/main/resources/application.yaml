@@ -1,0 +1,7 @@
+app:
+  name: crdToUML
+spring:
+  profiles:
+    active: ${APP:""}
+  main:
+    banner-mode: "off"
