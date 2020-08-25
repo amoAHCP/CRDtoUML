@@ -1,17 +1,19 @@
 package org.jacpfx.yaml.model;
 
-public class Application {
+public class RelationalDatabaseRequirement {
     private String apiVersion;
     private String kind;
     private Metadata metadata;
-    private Spec spec;
+    private DBSpec spec;
 
-    public Spec getSpec() {
-        return spec;
+    public RelationalDatabaseRequirement(String apiVersion, String kind, Metadata metadata, DBSpec spec) {
+        this.apiVersion = apiVersion;
+        this.kind = kind;
+        this.metadata = metadata;
+        this.spec = spec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public RelationalDatabaseRequirement() {
     }
 
     public String getApiVersion() {
@@ -38,13 +40,11 @@ public class Application {
         this.metadata = metadata;
     }
 
-    @Override
-    public String toString() {
-        return "Application{" +
-                "apiVersion='" + apiVersion + '\'' +
-                ", kind='" + kind + '\'' +
-                ", metadata=" + metadata +
-                ", spec=" + spec +
-                '}';
+    public DBSpec getSpec() {
+        return spec;
+    }
+
+    public void setSpec(DBSpec spec) {
+        this.spec = spec;
     }
 }

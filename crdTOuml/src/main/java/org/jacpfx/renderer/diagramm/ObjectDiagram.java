@@ -93,10 +93,12 @@ public class ObjectDiagram {
         return String.join("\n", collect);
     }
 
+
     private String getObjects(List<Application> applications) {
         List<String> collect = applications.stream().map(application -> {
-            String name = application.getMetadata().getName().replace("-", "");
-            String result = "object " + name + " { \n";
+            String plainName = application.getMetadata().getName();
+            String name = plainName.replace("-", "");
+            String result = "object " +"\""+plainName +"\" " + "as " + name + " { \n";
             result += "__ metadata __";
             result += "\n";
             result += getMetadata(List.of(application));

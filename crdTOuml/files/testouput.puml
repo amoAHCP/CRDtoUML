@@ -1,0 +1,197 @@
+@startuml
+object syriuserppresentationserver {
+__ metadata __
+app = syrius-erp-presentation-server
+app.kubernetes.io/name = syrius-erp-presentation-server
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = master-15045
+helm.sh/chart-name = adcubum-syrius-erp-helvetia-nl
+helm.sh/chart-version = 0.1.0-master-15045
+ -- container --
+image = adcubum.adcr.io/syrius/presentation-server-helvetia-nl:master-15045
+
+}
+object syrius-erp-applicationserver as syriuserpapplicationserver{
+__ metadata __
+app = syrius-erp-application-server
+app.kubernetes.io/name = syrius-erp-application-server
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = master-15045
+helm.sh/chart-name = adcubum-syrius-erp-helvetia-nl
+helm.sh/chart-version = 0.1.0-master-15045
+ -- container --
+image = adcubum.adcr.io/syrius/application-server-helvetia-nl:master-15045
+
+}
+object syriuspolicymgmtcontractmgmtcompositebff {
+__ metadata __
+app = syrius-policymgmt-contractmgmtcomposite-bff
+app.kubernetes.io/name = syrius-policymgmt-contractmgmtcomposite-bff
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.11.0
+helm.sh/chart-name = syrius-policymgmt-contractmgmtcomposite-bff
+helm.sh/chart-version = 0.11.0
+ -- container --
+image = adcubum.adcr.io/syrius-policymgmt-contractmgmtcomposite/syrius-policymgmt-contractmgmtcomposite-bff:0.11.0
+
+}
+object syriuspolicymgmtcontractmgmtcompositebl {
+__ metadata __
+app = syrius-policymgmt-contractmgmtcomposite-bl
+app.kubernetes.io/name = syrius-policymgmt-contractmgmtcomposite-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.11.1
+helm.sh/chart-name = syrius-policymgmt-contractmgmtcomposite-bl
+helm.sh/chart-version = 0.11.1
+ -- container --
+image = adcubum.adcr.io/syrius-policymgmt-contractmgmtcomposite/syrius-policymgmt-contractmgmtcomposite-bl:0.11.1
+
+}
+object syriusproductmgmtparamclientps {
+__ metadata __
+app = syrius-productmgmt-param-client-ps
+app.kubernetes.io/name = syrius-productmgmt-param-client-ps
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.16.0
+helm.sh/chart-name = syrius-productmgmt-param-client
+helm.sh/chart-version = 0.16.0
+ -- container --
+image = adcubum.adcr.io/productmgmt-param-client/productmgmt-param-client-ps:0.16.0
+
+}
+object syriusproductmgmtparamclientas {
+__ metadata __
+app = syrius-productmgmt-param-client-as
+app.kubernetes.io/name = syrius-productmgmt-param-client-as
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.16.0
+helm.sh/chart-name = syrius-productmgmt-param-client
+helm.sh/chart-version = 0.16.0
+ -- container --
+image = adcubum.adcr.io/productmgmt-param-client/productmgmt-param-client-as:0.16.0
+
+}
+object syriusproductmgmtbl {
+__ metadata __
+app = syrius-productmgmt-bl
+app.kubernetes.io/name = syrius-productmgmt-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.16.0
+helm.sh/chart-name = syrius-productmgmt-bl
+helm.sh/chart-version = 0.16.0
+ -- container --
+image = adcubum.adcr.io/syrius-productmgmt/syrius-productmgmt-bl:0.16.0
+
+}
+object syriusmktgdistsalessupportbff {
+__ metadata __
+app = syrius-mktgdist-salessupport-bff
+app.kubernetes.io/name = syrius-mktgdist-salessupport-bff
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.1.0-rc.1.dev.418.e978b3c
+helm.sh/chart-name = syrius-mktgdist-salessupport-bff
+helm.sh/chart-version = 0.1.0-rc.1.dev.418.e978b3c
+ -- container --
+image = adcubum.adcr.io/syrius-mktgdist-salessupport/syrius-mktgdist-salessupport-bff:0.1.0-rc.1.dev.418.e978b3c
+
+}
+object syriusmktgdistsalessupportbl {
+__ metadata __
+app = syrius-mktgdist-salessupport-bl
+app.kubernetes.io/name = syrius-mktgdist-salessupport-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.1.0-rc.1.dev.525.2a7d6d8
+helm.sh/chart-name = syrius-mktgdist-salessupport-bl
+helm.sh/chart-version = 0.1.0-rc.1.dev.525.2a7d6d8
+ -- container --
+image = adcubum.adcr.io/syrius-mktgdist-salessupport/syrius-mktgdist-salessupport-bl:0.1.0-rc.1.dev.525.2a7d6d8
+
+}
+object syriusmktgdistsalessupportwebapp {
+__ metadata __
+app = syrius-mktgdist-salessupport-webapp
+app.kubernetes.io/name = syrius-mktgdist-salessupport-webapp
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.1.0-rc.1.dev.286.e1e7733
+helm.sh/chart-name = syrius-mktgdist-salessupport-webapp
+helm.sh/chart-version = 0.1.0-rc.1.dev.286.e1e7733
+ -- container --
+image = adcubum.adcr.io/syrius-mktgdist-salessupport/syrius-mktgdist-salessupport-webapp:0.1.0-rc.1.dev.286.e1e7733
+
+}
+object syriuserppartnermgmtrefdatabl {
+__ metadata __
+app = syrius-erp-partnermgmt-refdata-bl
+app.kubernetes.io/name = syrius-erp-partnermgmt-refdata-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 1.1.1
+helm.sh/chart-name = syrius-erp-partnermgmt-refdata-bl
+helm.sh/chart-version = 1.1.1
+ -- container --
+image = adcubum.adcr.io/syrius-erp-partnermgmt/syrius-erp-partnermgmt-refdata-bl:1.1.1
+
+}
+object syriuserpdistpartnermgmtbl {
+__ metadata __
+app = syrius-erp-distpartnermgmt-bl
+app.kubernetes.io/name = syrius-erp-distpartnermgmt-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.4.0-dev.32.3fa4ff4
+helm.sh/chart-name = syrius-erp-distpartnermgmt-bl
+helm.sh/chart-version = 0.4.0-dev.32.3fa4ff4
+ -- container --
+image = adcubum.adcr.io/syrius-erp-distpartnermgmt/syrius-erp-distpartnermgmt-bl:0.4.0-dev.32.3fa4ff4
+
+}
+object syriuserpobjectmgmtrefdatabl {
+__ metadata __
+app = syrius-erp-objectmgmt-refdata-bl
+app.kubernetes.io/name = syrius-erp-objectmgmt-refdata-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 1.0.0-rc.2
+helm.sh/chart-name = syrius-erp-objectmgmt-refdata-bl
+helm.sh/chart-version = 1.0.0-rc.2
+ -- container --
+image = adcubum.adcr.io/syrius-erp-objectmgmt-refdata/syrius-erp-objectmgmt-refdata-bl:1.0.0-rc.2
+
+}
+object syriusoutputmgmtinfprocessresourcesbl {
+__ metadata __
+app = syrius-outputmgmt-infprocess-resources-bl
+app.kubernetes.io/name = syrius-outputmgmt-infprocess-resources-bl
+app.kubernetes.io/instance = RELEASE-NAME
+app.kubernetes.io/managed-by = Helm
+app.kubernetes.io/version = 0.1.0-dev.292.3eed998
+helm.sh/chart-name = syrius-outputmgmt-infprocess-resources-bl
+helm.sh/chart-version = 0.1.0-dev.292.3eed998
+ -- container --
+image = adcubum.adcr.io/syrius-outputmgmt-infprocess-resources/syrius-outputmgmt-infprocess-resources-bl:0.1.0-dev.292.3eed998
+
+}
+syriuserppresentationserver --> syriuserpapplicationserver:LooseCouplingInOrder
+syriuspolicymgmtcontractmgmtcompositebff --> syriuspolicymgmtcontractmgmtcompositebl:LooseCouplingInOrder
+syriuspolicymgmtcontractmgmtcompositebff --> syriuserpapplicationserver:LooseCoupling
+syriuspolicymgmtcontractmgmtcompositebff --> syriusproductmgmtbl:LooseCoupling
+syriuspolicymgmtcontractmgmtcompositebl --> syriusproductmgmtbl:LooseCoupling
+syriusproductmgmtparamclientps --> syriusproductmgmtparamclientas:LooseCouplingInOrder
+syriusmktgdistsalessupportbff --> syriusmktgdistsalessupportbl:LooseCouplingInOrder
+syriusmktgdistsalessupportbff --> syriuserpobjectmgmtrefdatabl:LooseCoupling
+syriusmktgdistsalessupportbff --> syriuserppartnermgmtrefdatabl:LooseCoupling
+syriusmktgdistsalessupportbff --> syriusproductmgmtbl:LooseCoupling
+syriusmktgdistsalessupportbff --> syriuserpdistpartnermgmtbl:LooseCoupling
+syriusmktgdistsalessupportbl --> syriusproductmgmtbl:LooseCoupling
+syriusmktgdistsalessupportwebapp --> syriusmktgdistsalessupportbff:LooseCoupling
+@enduml

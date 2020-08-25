@@ -5,7 +5,10 @@ import org.jacpfx.deployment.Helm;
 import org.jacpfx.deployment.command.helm.DownloadTemplates;
 import org.jacpfx.deployment.command.helm.ShowValues;
 import org.jacpfx.deployment.descriptor.helm.Chart;
+import org.jacpfx.deployment.descriptor.helm.Charts;
+import org.jacpfx.deployment.descriptor.helm.Suite;
 import org.jacpfx.deployment.dto.helm.ChartTemplates;
+import org.jacpfx.deployment.dto.helm.SuiteTemplate;
 import org.jacpfx.process.ProcessResult;
 
 import java.io.File;
@@ -24,9 +27,17 @@ public class ChartController {
     public static final String EMPTY_VALUES = PropertyLoader.getProperty("emptyValues");
     public static final String DELIMITER = "/";
 
-    public List<ChartTemplates> downloadCharts(Chart... charts) {
-        return Arrays.stream(charts).map(this::getChartTemplate).collect(Collectors.toList());
+    public List<ChartTemplates> downloadCharts(Chart... chart) {
+        return Arrays.stream(chart).map(this::getChartTemplate).collect(Collectors.toList());
 
+    }
+
+    public List<SuiteTemplate> downloadSuite(Suite suite) {
+        return suite.getSuite().stream().map(this::getSuiteTemplate).collect(Collectors.toList());
+    }
+
+    private SuiteTemplate getSuiteTemplate(Charts charts) {
+        return new SuiteTemplate(charts.getName(), downloadCharts(charts.getCharts().stream().toArray(Chart[]::new)));
     }
 
     private ChartTemplates getChartTemplate(Chart chart) {
@@ -49,17 +60,18 @@ public class ChartController {
         }
     }
 
-    private File createValuesFile(Chart chart, ProcessResult processResult, String emptyValues) {
+    private File createValuesFile(Chart chart, ProcessResult processResult, String emptyValues) throws IOException {
+        FileWriter writer = null;
         try {
             File valuesFile = File.createTempFile(chart.getChartName() + "values", ".yml");
             valuesFile.deleteOnExit();
-            FileWriter writer = new FileWriter(valuesFile);
+            writer = new FileWriter(valuesFile);
             writer.write(processResult.getResult().replace("\"\"", emptyValues));
-            writer.close();
             return valuesFile;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
         }
-        return null;
     }
 }
